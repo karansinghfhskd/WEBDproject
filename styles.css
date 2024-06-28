@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Background of the entire game */
+    color: #fff; /* Default text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #333; /* Container background color */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.search-bar {
+    width: 200px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555; /* Border color */
+    background-color: #444; /* Background color */
+    color: #fff; /* Text color */
+    transition: box-shadow 0.3s ease;
+}
+
+.search-bar::placeholder {
+    color: #ccc; /* Placeholder text color */
+}
+
+.search-bar:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #fff; /* Title color */
+}
+
+.players {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.player {
+    flex: 1;
+    padding: 10px;
+    background-color: #444; /* Player container background color */
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Player text color */
+}
+
+.player h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #fff; /* Player title color */
+}
+
+.player .score {
+    font-size: 16px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    background-color: #2d2c2c; /* Cell background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    color: #fff; /* Default color for X and O */
+}
+
+.cell.black {
+    color: #fff; /* Color for X and O during the game */
+}
+
+.cell.green {
+    color: #0f0; /* Color for the winning player */
+}
+
+.cell.red {
+    color: #f00; /* Color for the losing player */
+}
+
+.cell:hover {
+    background-color: #444; /* Hover background color for cells */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.message {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff; /* Message text color */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #000; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #333; /* Hover background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.input-field {
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #555; /* Border color */
+    background-color: #444; /* Background color */
+    color: #fff; /* Text color */
+    transition: box-shadow 0.3s ease;
+}
+
+.input-field::placeholder {
+    color: #ccc; /* Placeholder text color */
+}
+
+.input-field:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.signup {
+    margin-top: 20px;
+}

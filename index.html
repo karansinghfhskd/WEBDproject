@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="ttt2.jpeg" width="40px"  >
+            <input type="text" placeholder="Search..." class="search-bar">
+        </header>
+        <h1>Tic Tac Toe</h1>
+        <div class="players">
+            <div id="player1" class="player">
+                <h2>PLAYER 1 (X)</h2>
+                <div class="score">Score: <span id="player1Score">0</span></div>
+            </div>
+            <div id="player2" class="player">
+                <h2>PLAYER 2 (O)</h2>
+                <div class="score">Score: <span id="player2Score">0</span></div>
+            </div>
+        </div>
+        <div id="board" class="board">
+            <!-- Tic Tac Toe board cells -->
+            <div class="cell" data-position="0"></div>
+            <div class="cell" data-position="1"></div>
+            <div class="cell" data-position="2"></div>
+            <div class="cell" data-position="3"></div>
+            <div class="cell" data-position="4"></div>
+            <div class="cell" data-position="5"></div>
+            <div class="cell" data-position="6"></div>
+            <div class="cell" data-position="7"></div>
+            <div class="cell" data-position="8"></div>
+        </div>
+        <div id="message" class="message">Click below to toss for first player:</div>
+        <button id="tossBtn">Toss Coin</button>
+        <button id="resetBtn">Reset Game</button>
+        <div class="signup">
+            <h2>Sign Up</h2>
+            <input type="text" placeholder="Username" class="input-field">
+            <input type="email" placeholder="Email" class="input-field">
+            <input type="password" placeholder="Password" class="input-field">
+            <button id="signupBtn" class="signup-btn">Sign Up</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript logic for Tic Tac Toe game
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let turn = ''; // Will be determined by coin toss
+        let gameOver = false;
+        let player1Score = 0;
+        let player2Score = 0;
+
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                if (!gameOver && cell.textContent === '') {
+                    const position = parseInt(cell.dataset.position);
+                    board[position] = turn;
+                    cell.textContent = turn;
+                    cell.classList.add('black'); // Always black color for X and O
+                    if (checkWin(turn)) {
+                        document.getElementById('message').textContent = `${turn} Wins!`;
+                        markWinningCells(turn); // Mark winning cells
+                        updateScore(turn); // Update player scores
+                        gameOver = true;
+                    } else if (checkDraw()) {
+                        document.getElementById('message').textContent = "It's a Draw!";
+                        gameOver = true;
+                    } else {
+                        turn = turn === 'X' ? 'O' : 'X';
+                        document.getElementById('message').textContent = `${turn}'s Turn`;
+                    }
+                }
+            });
+        });
+
+        function checkWin(player) {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6] // Diagonals
+            ];
+            return winConditions.some(combination =>
+                combination.every(index => board[index] === player)
+            );
+        }
+
+        function checkDraw() {
+            return board.every(cell => cell !== '');
+        }
+
+        function markWinningCells(player) {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6] // Diagonals
+            ];
+            winConditions.forEach(combination => {
+                if (combination.every(index => board[index] === player)) {
+                    combination.forEach(index => {
+                        const cell = cells[index];
+                        cell.classList.add('green'); // Highlight winning cells in green
+                    });
+                }
+            });
+        }
+
+        function updateScore(player) {
+            if (player === 'X') {
+                player1Score++;
+                document.getElementById('player1Score').textContent = player1Score;
+            } else if (player === 'O') {
+                player2Score++;
+                document.getElementById('player2Score').textContent = player2Score;
+            }
+        }
+
+        function coinToss() {
+            return Math.random() < 0.5 ? 'X' : 'O';
+        }
+
+        document.getElementById('tossBtn').addEventListener('click', () => {
+            turn = coinToss(); // Decide who plays first
+            document.getElementById('message').textContent = `${turn}'s Turn`;
+            document.getElementById('tossBtn').style.display = 'none'; // Hide toss button after decision
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            board = ['', '', '', '', '', '', '', '', ''];
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('green'); // Reset winning cell highlight
+            });
+            document.getElementById('tossBtn').style.display = 'inline-block'; // Show toss button again
+            gameOver = false;
+            document.getElementById('message').textContent = "Click below to toss for first player:";
+        });
+    </script>
+</body>
+</html>
